@@ -140,3 +140,13 @@ int getVariableToLeaveBase(int n, int m, int i_to_include_in_base, int *i, doubl
     return index_var;
 }
 
+// Get the index of a number inside a array. If the number doesn't exists, returns -1
+int getIndexOf(int number, int n, int *array)
+{
+    for (int t = 0; t < n; t++)
+        if (array[t] == number)
+            return t;
+
+    return -1;
+}
+
