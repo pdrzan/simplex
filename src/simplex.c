@@ -75,3 +75,13 @@ bool isOptimalSolution(int n, double *c)
 
     return true;
 }
+
+// Checks if a variable is ilimited
+bool isVariableIlimited(int var_index, int m, double **r)
+{
+    for (int j = 0; j < m; j++)
+        if (r[j][var_index - 1] > EPSILON)
+            return false;
+
+    return true;
+}
