@@ -186,3 +186,62 @@ void copyIntArray(int n, int *base, int *to_copy)
         to_copy[t] = base[t];
 }
 
+// Changes the base removing var_to_leave_base variable and adding var_to_enter_base variable
+void changeBase(int var_to_enter_base, int var_to_leave_base, int n, int m, int *i, double **r)
+{
+    int index = 0, index_var_enter_base, index_var_leave_base;
+    int *ii;
+    double **rr;
+    bool added = false;
+
+    if (m == 1)
+    {
+        i[0] = var_to_enter_base;
+        return;
+    }
+
+    ii = (int *)malloc(sizeof(int) * m);
+    rr = (double **)malloc(sizeof(double *) * m);
+    for (int j = 0; j < m; j++)
+        rr[j] = (double *)malloc(sizeof(double) * (n + 1));
+
+    for (int j = 0; j < m; j++)
+    {
+        if (i[j] != var_to_leave_base)
+        {
+            if (added || i[j] < var_to_enter_base)
+            {
+                ii[index] = i[j];
+                copyDoubleArray(n + 1, r[j], rr[index]);
+
+                index++;
+            }
+            else
+            {
+                ii[index] = var_to_enter_base;
+                index_var_enter_base = index;
+                index++;
+
+                ii[index] = i[j];
+                copyDoubleArray(n + 1, r[j], rr[index]);
+                index++;
+
+                added = true;
+            }
+        }
+        else
+        {
+            index_var_leave_base = j;
+        }
+    }
+    copyDoubleArray(n + 1, r[index_var_leave_base], rr[index_var_enter_base]);
+
+    for (int j = 0; j < m; j++)
+        copyDoubleArray(n + 1, rr[j], r[j]);
+
+    copyIntArray(m, ii, i);
+
+    free(ii);
+    free(rr);
+}
+
