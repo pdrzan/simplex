@@ -1,0 +1,16 @@
+P n m
+F c1  c2  ... cn
+R a11 a12 ... a1n b1
+R a21 a22 ... a2n b2
+[...]
+R am1 am2 ... amn bm
+B i1  i2  ... im
+T
+
+Where:
+- n is the number of variables
+- m is the number of constraints
+- F is the cost of each variable in objective function
+- R is a constraint
+- B is the current base (the indexes of the varibles in base)
+- T is the end of the instance
