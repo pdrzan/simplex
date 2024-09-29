@@ -105,3 +105,20 @@ bool isTableauIlimited(int n, int m, double *c, double **r)
 
     return false;
 }
+
+// Gets the index of the variable with the best reduced cost in Tableau
+int getBestReducedCostVariableIndex(int n, double *c)
+{
+    double best_reduced_cost = DBL_MIN;
+    int index_var = -1;
+
+    for (int t = 0; t < n; t++)
+        if (c[t] > best_reduced_cost + EPSILON)
+        {
+            best_reduced_cost = c[t];
+            index_var = t + 1;
+        }
+
+    return index_var;
+}
+
