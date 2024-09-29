@@ -160,3 +160,15 @@ void lineIndexToOne(double *line, int index, int line_size)
     line[index] = 1;
 }
 
+// Transforms line[index] to 0
+bool lineIndexToZero(double *line_to_zero, double *line_base, int index, int line_size)
+{
+    double factor_to_multiply = -1 * line_to_zero[index] / line_base[index];
+
+    for (int i = 0; i < line_size; i++)
+        if (i != index)
+            line_to_zero[i] += factor_to_multiply * line_base[i];
+
+    line_to_zero[index] = 0;
+}
+
