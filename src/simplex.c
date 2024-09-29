@@ -383,3 +383,44 @@ void printGrowthOfIlimitedVars(int n, int m, int *i, double **r)
         }
     }
 }
+
+// Prints the variables that can leave the base in the format
+// L i k i1 i2 ...
+//
+// Where i is the variable that can enter the base, k is the number of variables that
+// can leave the base and [i1 ... ik] is the variables that can leave the base
+void printVariablesThatCanLeaveBase(int n, int m, int *i, double **r)
+{
+    for (int t = 0; t < n; t++)
+    {
+        if (!isVariableInBase(t + 1, m, i))
+        {
+            int k = 0;
+            int b_y = INT_MAX;
+
+            for (int j = 0; j < m; j++)
+            {
+                if (r[j][t] > 0 && r[j][n] / r[j][t] < b_y)
+                {
+                    b_y = r[j][n] / r[j][t];
+                    k = 1;
+                }
+                else if (r[j][t] > 0 && r[j][n] / r[j][t] == b_y)
+                {
+                    k++;
+                }
+            }
+
+            if (b_y < INT_MAX)
+            {
+                printf("L %d %d", t + 1, k);
+
+                for (int j = 0; j < m; j++)
+                    if (r[j][t] > 0 && r[j][n] / r[j][t] == b_y)
+                        printf(" %d", i[j]);
+
+                printf("\n");
+            }
+        }
+    }
+}
