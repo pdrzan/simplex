@@ -85,3 +85,14 @@ bool isVariableIlimited(int var_index, int m, double **r)
 
     return true;
 }
+
+// Checks if a variable is in the base
+bool isVariableInBase(int var_index, int m, int *i)
+{
+    for (int j = 0; j < m; j++)
+        if (i[j] == var_index)
+            return true;
+
+    return false;
+}
+
