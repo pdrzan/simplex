@@ -325,3 +325,24 @@ void printTableau(int n, int m, double *c, int *i, double **r)
 
     free(b);
 }
+
+// Prints the vectors that represents the Tableau in the format:
+// C c1 c2 ...
+// R r1 r2 ...
+// [...]
+// I i1 i2 ...
+void printVectors(int n, int m, double *c, int *i, double **r)
+{
+    printf("C ");
+    printDoubleLine(c, n + 1, true);
+
+    for (int j = 0; j < m; j++)
+    {
+        printf("R ");
+        printDoubleLine(r[j], n + 1, false);
+    }
+
+    printf("I ");
+    printIntLine(i, m, false);
+}
+
