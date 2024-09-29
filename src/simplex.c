@@ -11,3 +11,10 @@ void notPossibleToBuildTableau()
     printf("E 1\n");
     exit(0);
 }
+
+// Prints V N and exits program
+void notFeasibleBase()
+{
+    printf("V N\n");
+    exit(0);
+}
