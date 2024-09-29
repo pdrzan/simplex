@@ -245,3 +245,25 @@ void changeBase(int var_to_enter_base, int var_to_leave_base, int n, int m, int 
     free(rr);
 }
 
+// Prints a line
+void printDoubleLine(double *line, int line_size, bool printNegative)
+{
+    if (printNegative)
+        for (int i = 0; i < line_size; i++)
+        {
+            if (i + 1 < line_size)
+                printf("%.3lf ", -line[i]);
+            else
+                printf("%.3lf", -line[i]);
+        }
+    else
+        for (int i = 0; i < line_size; i++)
+        {
+            if (i + 1 < line_size)
+                printf("%.3lf ", line[i]);
+            else
+                printf("%.3lf", line[i]);
+        }
+    printf("\n");
+}
+
