@@ -179,3 +179,10 @@ void copyDoubleArray(int n, double *base, double *to_copy)
         to_copy[t] = base[t];
 }
 
+// Copies a base array to a to_copy array
+void copyIntArray(int n, int *base, int *to_copy)
+{
+    for (int t = 0; t < n; t++)
+        to_copy[t] = base[t];
+}
+
