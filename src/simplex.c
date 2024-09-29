@@ -267,3 +267,25 @@ void printDoubleLine(double *line, int line_size, bool printNegative)
     printf("\n");
 }
 
+// Prints a line
+void printIntLine(int *line, int line_size, bool printNegative)
+{
+    if (printNegative)
+        for (int i = 0; i < line_size; i++)
+        {
+            if (i + 1 < line_size)
+                printf("%d ", -line[i]);
+            else
+                printf("%d", -line[i]);
+        }
+    else
+        for (int i = 0; i < line_size; i++)
+        {
+            if (i + 1 < line_size)
+                printf("%d ", line[i]);
+            else
+                printf("%d", line[i]);
+        }
+    printf("\n");
+}
+
