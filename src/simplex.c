@@ -5,6 +5,8 @@
 #include <string.h>
 #include <limits.h>
 
+#include "simplex.h"
+
 // Prints E 1 and exits program
 void notPossibleToBuildTableau()
 {
