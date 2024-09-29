@@ -172,3 +172,10 @@ bool lineIndexToZero(double *line_to_zero, double *line_base, int index, int lin
     line_to_zero[index] = 0;
 }
 
+// Copies a base array to a to_copy array
+void copyDoubleArray(int n, double *base, double *to_copy)
+{
+    for (int t = 0; t < n; t++)
+        to_copy[t] = base[t];
+}
+
