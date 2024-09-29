@@ -18,6 +18,7 @@ void notFeasibleBase()
     printf("V N\n");
     exit(0);
 }
+
 // Reads instance and stores information in n, m, c, i and r arrays
 void readInstance(char *instance_file_path, int *n, int *m, double **c, int **i, double ***r)
 {
@@ -423,4 +424,88 @@ void printVariablesThatCanLeaveBase(int n, int m, int *i, double **r)
             }
         }
     }
+}
+
+int main(int argc, char **argv)
+{
+    char *instance_file_path = NULL;
+
+    int n, m, index, i_to_enter_base, i_to_leave_base, *i;
+    double *c, **r;
+
+    // Catch instance file path passed as command line argument
+    instance_file_path = argv[1];
+
+    if (instance_file_path == NULL)
+        notPossibleToBuildTableau();
+
+    // Read instance from instance file path
+    readInstance(instance_file_path, &n, &m, &c, &i, &r);
+
+    // Verifies if the base is feasible
+    for (int j = 0; j < m; j++)
+        if (isLineIndexEqualToNumber(r[j], i[j] - 1, 0))
+            notFeasibleBase();
+
+    // Transforms arrays to Tableau format
+    for (int j = 0; j < m; j++)
+    {
+        if (!isLineIndexEqualToNumber(r[j], i[j] - 1, 1))
+        {
+            lineIndexToOne(r[j], i[j] - 1, n + 1);
+
+            for (int jj = 0; jj < m; jj++)
+                if (j != jj)
+                    lineIndexToZero(r[jj], r[j], i[j] - 1, n + 1);
+        }
+
+        if (!isLineIndexEqualToNumber(c, i[j] - 1, 0))
+            lineIndexToZero(c, r[j], i[j] - 1, n + 1);
+    }
+
+    // Prints tableau
+    printf("V S\n");
+    printTableau(n, m, c, i, r);
+
+    // Verifies if solution is optimal
+    if (isOptimalSolution(n, c))
+        printf("O S\n");
+    else
+    {
+        printf("O N\n");
+
+        // Verifies if Tableau is ilimited
+        if (isTableauIlimited(n, m, c, r))
+        {
+            printGrowthOfIlimitedVars(n, m, i, r);
+        }
+        else
+        {
+            printVariablesThatCanLeaveBase(n, m, i, r);
+
+            // Select variables to leave and enter the base
+            i_to_enter_base = getBestReducedCostVariableIndex(n, c);
+            i_to_leave_base = getVariableToLeaveBase(n, m, i_to_enter_base, i, r);
+
+            printf("T %d %d\n", i_to_enter_base, i_to_leave_base);
+
+            // Changes the base, removing and adding variables
+            changeBase(i_to_enter_base, i_to_leave_base, n, m, i, r);
+            index = getIndexOf(i_to_enter_base, m, i);
+
+            if (!isLineIndexEqualToNumber(r[index], i[index] - 1, 1))
+                lineIndexToOne(r[index], i[index] - 1, n + 1);
+
+            for (int j = 0; j < m; j++)
+                if (index != j)
+                    lineIndexToZero(r[j], r[index], i[index] - 1, n + 1);
+
+            if (!isLineIndexEqualToNumber(c, i[index] - 1, 0))
+                lineIndexToZero(c, r[index], i[index] - 1, n + 1);
+
+            printTableau(n, m, c, i, r);
+        }
+    }
+
+    return 1;
 }
