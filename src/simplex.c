@@ -150,3 +150,13 @@ int getIndexOf(int number, int n, int *array)
     return -1;
 }
 
+// Transforms line[index] to 1
+void lineIndexToOne(double *line, int index, int line_size)
+{
+    for (int i = 0; i < line_size; i++)
+        if (i != index)
+            line[i] /= line[index];
+
+    line[index] = 1;
+}
+
