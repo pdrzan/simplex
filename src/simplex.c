@@ -96,3 +96,12 @@ bool isVariableInBase(int var_index, int m, int *i)
     return false;
 }
 
+// Checks if the Tableau is ilimited
+bool isTableauIlimited(int n, int m, double *c, double **r)
+{
+    for (int t = 0; t < n; t++)
+        if (isVariableIlimited(t + 1, m, r))
+            return true;
+
+    return false;
+}
