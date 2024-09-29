@@ -346,3 +346,40 @@ void printVectors(int n, int m, double *c, int *i, double **r)
     printIntLine(i, m, false);
 }
 
+// Prints the growth of ilimited variables in the format:
+// I i r1 r2 ...
+//
+// Where i is the index of the ilimited variable and [r1 ... rn] is the growth of the other variables
+void printGrowthOfIlimitedVars(int n, int m, int *i, double **r)
+{
+    for (int t = 0; t < n; t++)
+    {
+        if (isVariableIlimited(t + 1, m, r))
+        {
+            int jj = 0;
+
+            printf("I %d ", t + 1);
+
+            for (int tt = 0; tt < n && jj < m; tt++)
+            {
+                if (isVariableInBase(tt + 1, m, i))
+                {
+                    printf("%.3lf", -r[jj][t]);
+                    jj++;
+                }
+                else if (tt == t)
+                {
+                    printf("%.3lf", 1.0);
+                }
+                else
+                {
+                    printf("%.3lf", 0.0);
+                }
+
+                if (tt + 1 < n)
+                    printf(" ");
+            }
+            printf("\n");
+        }
+    }
+}
