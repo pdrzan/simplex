@@ -122,3 +122,21 @@ int getBestReducedCostVariableIndex(int n, double *c)
     return index_var;
 }
 
+// Gets the index of the variable that is going to leave the base
+int getVariableToLeaveBase(int n, int m, int i_to_include_in_base, int *i, double **r)
+{
+    int b_y = INT_MAX;
+    int index_var = -1;
+
+    for (int j = 0; j < m; j++)
+    {
+        if (r[j][i_to_include_in_base - 1] > 0 && r[j][n] / r[j][i_to_include_in_base - 1] < b_y)
+        {
+            b_y = r[j][n] / r[j][i_to_include_in_base - 1];
+            index_var = i[j];
+        }
+    }
+
+    return index_var;
+}
+
