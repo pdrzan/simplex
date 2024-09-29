@@ -59,3 +59,10 @@ void readInstance(char *instance_file_path, int *n, int *m, double **c, int **i,
     for (j = 0; j < *m; j++)
         fscanf(instance_file, "%d", &(*i)[j]);
 }
+
+// Checks if a line[index] is equal to a number considering EPSILON as numeric error
+bool isLineIndexEqualToNumber(double *line, int index, int number)
+{
+    return (line[index] > number && line[index] - number <= EPSILON) || (line[index] < number && number - line[index] <= EPSILON) || line[index] == number;
+}
+
