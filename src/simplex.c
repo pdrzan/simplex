@@ -289,3 +289,39 @@ void printIntLine(int *line, int line_size, bool printNegative)
     printf("\n");
 }
 
+// Prints the Tableau in the format:
+// X i1 i2 ...
+// C c1 c2 ...
+// Z z
+void printTableau(int n, int m, double *c, int *i, double **r)
+{
+    double z, *b, *x;
+
+    z = 0;
+
+    x = (double *)calloc(sizeof(double), n);
+    b = (double *)malloc(sizeof(double) * m);
+
+    for (int j = 0; j < m; j++)
+    {
+        b[j] = r[j][n];
+        x[i[j] - 1] = r[j][n];
+    }
+
+    printf("X ");
+    for (int i = 0; i < n; i++)
+    {
+        if (i + 1 < n)
+            printf("%.3lf ", x[i]);
+        else
+            printf("%.3lf", x[i]);
+    }
+    printf("\n");
+
+    printf("C ");
+    printDoubleLine(c, n, true);
+
+    printf("Z %.3lf\n", -c[n]);
+
+    free(b);
+}
