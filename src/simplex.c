@@ -66,3 +66,12 @@ bool isLineIndexEqualToNumber(double *line, int index, int number)
     return (line[index] > number && line[index] - number <= EPSILON) || (line[index] < number && number - line[index] <= EPSILON) || line[index] == number;
 }
 
+// Checks if the Tableau is in a optimal solution
+bool isOptimalSolution(int n, double *c)
+{
+    for (int t = 0; t < n; t++)
+        if (c[t] > EPSILON)
+            return false;
+
+    return true;
+}
